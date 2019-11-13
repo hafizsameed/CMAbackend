@@ -1,0 +1,18 @@
+.msg-div{
+    border: 1px solid gray;
+}
+
+.name , .email, .subject, .message{
+padding: 10px;
+
+}
+
+.subject{
+    font-weight: 500;
+    
+}
+.msg{
+    background-color: #e4e4e4;
+    padding: 10px;
+
+}

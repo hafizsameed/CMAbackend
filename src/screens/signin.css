@@ -1,0 +1,77 @@
+.head-div{
+    /* border: 1px solid black; */
+    background-color: #F2C947;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
+}
+.head-text{
+    font-size: 50px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+}
+.signin-form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 50%;
+    margin: 30px;
+    padding: 20px;
+    box-shadow: 3px 5px 15px #575757;
+}
+
+.email-div, .password-div{
+    padding:20px;
+    width: 100%;
+}
+
+.email, .password{
+    padding: 10px;
+    border: 0px;
+    background-color: #e4e4e4;
+    width: 100%;
+}
+
+.inputs-div{
+    width: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+.main-div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+.signin-btn-div{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding:20px
+}
+.signin-btn{
+    border: 0px;
+    padding: 10px;
+    padding-right: 30px;
+    padding-left: 30px;
+    color: black;
+    background-color: #cecece;
+}
+
+@media only screen and  (max-width:1040px){
+
+.signin-form{
+    width: 90%;
+}
+
+
+}
