@@ -7,8 +7,8 @@ import Loader from 'react-loader'
  class Signin extends React.Component {
   
   state={
-      email:'controllermillitaryaccount@cma.com',
-      password:'quettacommand',
+      email:'',
+      password:'',
       loaded:true
   }
   
