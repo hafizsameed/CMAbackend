@@ -1,5 +1,6 @@
 .msg-div{
     border: 1px solid gray;
+    margin: 20px;
 }
 
 .name , .email, .subject, .message{

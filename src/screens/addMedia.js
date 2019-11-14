@@ -15,11 +15,11 @@ import ProgressBar from 'react-bootstrap/ProgressBar'
         uploading:false
     }
 
- uploadImage(imageFile){
+ uploadImage(imageFile,albumName){
     this.setState({uploadingImg:imageFile.name});
     var obj = this.refs.progress;
     return new Promise(function (resolve, reject) {
-        var storageRef = firebase.storage().ref("/media/"+imageFile.name);
+        var storageRef = firebase.storage().ref(`/media/${albumName}/`+imageFile.name);
         //Upload file
         var task = storageRef.put(imageFile);
 
@@ -53,7 +53,7 @@ async addMedia(){
     if(photos.length!==0 && albumName!==' '&& albumName!==''){  
         console.log(photos,'photos');
         for(var i=0;i<photos.length;i++){
-          arr[i] = await this.uploadImage(photos[i])
+          arr[i] = await this.uploadImage(photos[i],albumName)
             
         }
         console.log(arr,'arr');

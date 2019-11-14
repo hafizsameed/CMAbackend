@@ -41,6 +41,8 @@ const addTenderToDb=async function(tendertext,tenderdate){
   return data;
 } 
 
+
+
 export default firebase
 
 export {
