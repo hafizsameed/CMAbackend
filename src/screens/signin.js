@@ -1,23 +1,43 @@
 import React from 'react';
 import './signin.css'
 import {firebaseSignIn} from '../config/firebase'
+import Swal from 'sweetalert2'
+import Loader from 'react-loader'
+
  class Signin extends React.Component {
   
   state={
       email:'controllermillitaryaccount@cma.com',
-      password:'quettacommand'
+      password:'quettacommand',
+      loaded:true
   }
   
   signin(){
+      this.setState({loaded:false})
     console.log("sigining in");
     const {email,password} = this.state;
     firebaseSignIn(email,password)
     .then((data)=>{
         localStorage.setItem("user",data);
         console.log(data,'data');  
-        this.props.history.push('/home');
+        this.setState({loaded:true})
+        Swal.fire({
+            title: 'Success!',
+            text:'Logged In Successfully',
+            icon: 'success',
+            confirmButtonText: 'Ok'
+          })
+          .then(()=>{
+              this.props.history.push('/home');
+            })
     })
     .catch(e=>{
+        Swal.fire({
+            title: 'Failed!',
+            text: e.message,
+            icon: 'error',
+            confirmButtonText: 'Ok'
+          })
         console.log(e,'e');
     })
   }
@@ -30,6 +50,7 @@ import {firebaseSignIn} from '../config/firebase'
             Sign In
             </div>
         </div>
+        <Loader loaded={this.state.loaded}/>
         <div className='signin-form'>
         <div className='inputs-div'>
             <div className='email-div'>

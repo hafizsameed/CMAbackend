@@ -10,13 +10,16 @@ import ProgressBar from 'react-bootstrap/ProgressBar'
         tenderdate:'',
         loaded:true,
         photos:[],
-        albumName:''
+        albumName:'',
+        progress:0,
+        uploading:false
     }
 
  uploadImage(imageFile){
+    this.setState({uploadingImg:imageFile.name});
+    var obj = this.refs.progress;
     return new Promise(function (resolve, reject) {
         var storageRef = firebase.storage().ref("/media/"+imageFile.name);
-
         //Upload file
         var task = storageRef.put(imageFile);
 
@@ -26,6 +29,7 @@ import ProgressBar from 'react-bootstrap/ProgressBar'
                 var percentage = snapshot.bytesTransferred / snapshot.totalBytes * 100;
                 // uploader.value = percentage;
                 console.log(percentage);
+            //    obj.innerHTML=percentage;
             },
             function error(err){
                 console.log(err,'err')
@@ -43,7 +47,7 @@ import ProgressBar from 'react-bootstrap/ProgressBar'
 
 async addMedia(){
     var arr=[];
-    this.setState({loaded:false})
+    this.setState({loaded:false,uploading:true})
     console.log('adding media');
     const {photos,albumName} = this.state;
     if(photos.length!==0 && albumName!==' '&& albumName!==''){  
@@ -55,7 +59,7 @@ async addMedia(){
         console.log(arr,'arr');
         firebase.firestore().collection('media').add({albumName,photos:arr})
         .then((succ)=>{
-            this.setState({loaded:true});
+            this.setState({loaded:true,uploading:false});
             Swal.fire({
                 title: 'Success!',
                 text: 'Album Uploaded',
@@ -73,7 +77,7 @@ async addMedia(){
         })
     }
     else if(photos.length==0){
-        this.setState({loaded:true})
+        this.setState({loaded:true,uploading:false})
         Swal.fire({
             title: 'Error!',
             text: 'No Photo Uploaded',
@@ -82,7 +86,7 @@ async addMedia(){
           })
     }
     else if(albumName===''&&albumName===' '){
-       this.setState({loaded:true})
+       this.setState({loaded:true,uploading:false})
         Swal.fire({
             title: 'Error!',
             text: 'Album Name Missing',
@@ -124,6 +128,14 @@ async addMedia(){
                         console.log(e.target.files,'file');
                         this.setState({photos:e.target.files})}} type='file' multiple/>
                 </div> 
+                <div className='imgs-upload'>
+              {
+              !!this.state.uploading && 
+                         <div>
+                                <div> Uploading {this.state.uploadingImg}</div>
+                            </div>
+                  }
+                </div>
                 <div className='alert-btn-div'>
                     <button onClick={this.addMedia.bind(this)} className='alert-btn'>
                         Add Media
